@@ -12,6 +12,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"mime"
 	"net/smtp"
 	"os"
 	"os/signal"
@@ -100,6 +101,15 @@ func (c *tliConf) save() {
 }
 
 func (c *tliConf) sendInbox(title, body string) error {
+	// Text in an encoded-word in a display-name must not contain certain
+	// characters like quotes or parentheses (see RFC 2047 section 5.3).
+	// When this is the case encode the title using base64 encoding.
+	if strings.ContainsAny(title, "\"#$%&'(),.:;<>@[]^`{|}~") {
+		title = mime.BEncoding.Encode("utf-8", title)
+	} else {
+		title = mime.QEncoding.Encode("utf-8", title)
+	}
+
 	err := smtp.SendMail(
 		c.SMTPHost+":"+c.SMTPPort,
 		smtp.PlainAuth("", c.Username, c.Password, c.SMTPHost),
@@ -107,6 +117,9 @@ func (c *tliConf) sendInbox(title, body string) error {
 		// rfc822format, see:
 		// https://docs.microsoft.com/en-us/previous-versions/office/developer/exchange-server-2010/aa493918(v=exchg.140)
 		[]byte(fmt.Sprintf("Subject: %s\r\nFrom: %s <%s>\r\nTo: %s\r\n%s",
+			// Content-Type: text/plain; charset=utf-8; format=flowed
+			// Content-Transfer-Encoding: 7bit
+			// Content-Language: en-US
 			title,
 			c.Avatar, c.EmailAddr, c.ThingsAddr,
 			body,
