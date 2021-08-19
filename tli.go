@@ -28,8 +28,7 @@ import (
 
 // build info
 var (
-	Version     string
-	BuildTime   string
+	Version     = "v0.1.0"
 	GoVersion   = runtime.Version()
 	errCanceled = errors.New("action canceled")
 	homedir     string
@@ -286,10 +285,9 @@ much to the Things' server. tli also checks your content to make sure your
 inputs won't be too large so that the content is not silently truncated
 by Things.
 
-BuildVersion: %v
-BuildTime:    %v
-GoVersion:    %v
-`, Version, BuildTime, GoVersion),
+Version:   %v
+GoVersion: %v
+`, Version, GoVersion),
 	}
 	rootCmd.AddCommand(cmdInit)
 	rootCmd.AddCommand(cmdLog)

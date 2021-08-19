@@ -2,10 +2,8 @@
 
 A [Things](https://culturedcode.com/things/) CLI.
 
-> **_Caution: non-stable implementation, use at your own risk._**
-
 ```
-go get changkun.de/x/tli
+go install changkun.de/x/tli@latest
 ```
 
 ## Enable Mail to Things
@@ -59,9 +57,8 @@ much to the Things' server. tli also checks your content to make sure your
 inputs won't be too large so that the content is not silently truncated
 by Things.
 
-BuildVersion: b37519b
-BuildTime:    2020-11-15T02:14:51+0100
-GoVersion:    go1.15.5
+Version:   v0.1.0
+GoVersion: devel go1.18-8b471db71b Wed Aug 18 08:26:44 2021 +0000
 
 Usage:
   tli [command]
