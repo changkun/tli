@@ -115,7 +115,7 @@ func (c *tliConf) sendInbox(title, body string) error {
 		c.EmailAddr, []string{c.ThingsAddr},
 		// rfc822format, see:
 		// https://docs.microsoft.com/en-us/previous-versions/office/developer/exchange-server-2010/aa493918(v=exchg.140)
-		[]byte(fmt.Sprintf("Subject: %s\r\nFrom: %s <%s>\r\nTo: %s\r\n%s",
+		[]byte(fmt.Sprintf("Subject: %s\r\nFrom: %s <%s>\r\nTo: %s\r\nContent-Type: text/plain; charset=\"UTF-8\"\r\n%s",
 			// Content-Type: text/plain; charset=utf-8; format=flowed
 			// Content-Transfer-Encoding: 7bit
 			// Content-Language: en-US
