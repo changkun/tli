@@ -28,7 +28,7 @@ import (
 
 // build info
 var (
-	Version     = "v0.1.0"
+	Version     = "v0.2.1"
 	GoVersion   = runtime.Version()
 	errCanceled = errors.New("action canceled")
 	homedir     string
